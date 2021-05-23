@@ -2,6 +2,23 @@
 
 EUC-JPで作成されているDBをUTF8に移行する
 
+
+## Client Encoding
+
+### client_encoding を確認する
+
+```psql
+show client_encoding;
+```
+
+### client_encoding を変更する
+
+```psql
+set client_encoding to SJIS;   -- SJISへ変更
+set client_encoding to UTF8;   -- UTF8
+set client_encoding to EUC_JP; -- EUC_JPへ変更 
+```
+
 ## refs
 
 - [PostgreSQLをEUC-JPからUTF-8環境に移行する！](https://qiita.com/saba1024/items/f1da6e4aa0837259cff4)
@@ -14,4 +31,4 @@ EUC-JPで作成されているDBをUTF8に移行する
 - [RDS for PostgreSQL で SJISのCSVファイルをインサートする](https://dev.classmethod.jp/articles/rds-for-postgresql-sjis-csv-insert/)
 - [PostgreSQL の EUC→UTF 変換でエラー発生](https://blog.netandfield.com/shar/2015/04/postgresql-eucutf.html)
 - [postgreSQL の文字変換マップをカスタマイズ](http://grep.blog49.fc2.com/blog-entry-87.html)
-- 
+- [【PostgreSQL】Windowsで文字コード（client_encoding）を変更する](https://postgresweb.com/post-5740)

@@ -1,20 +1,28 @@
 version: "3.3"
 services:
-  db:
+  eucjp_db:
     build: ./docker/postgres-eucjp
-    restart: always
     environment:
       TZ: Asia/Tokyo
       POSTGRES_INITDB_ARGS: "--encoding=EUC_JP --lc-collate=C --lc-ctype=ja_JP.eucJP"
-      POSTGRES_DB: sample_db
+      POSTGRES_DB: sample1
       POSTGRES_HOST_AUTH_METHOD: trust
-      # required set user & password
-      # POSTGRES_USER: user
-      # POSTGRES_PASSWORD: password
     command: 'postgres -c config_file="/etc/postgresql/postgresql.conf"'
     ports:
       - "5432:5432"
     volumes:
-      # - ./docker/postgres/initdb.d:/docker-entrypoint-initdb.d
       - ./docker/postgres-eucjp/conf.d:/etc/postgresql
-      - ./log/postgres:/var/log/postgres-eucjp
+      - ./log/postgres/eucjp_db:/var/log/postgres-eucjp
+  utf8_db:
+    build: ./docker/postgres-utf8
+    environment:
+      TZ: Asia/Tokyo
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: sample2
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=ja_JP.UTF-8"
+    command: 'postgres -c config_file="/etc/postgresql/postgresql.conf"'
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./docker/postgres-utf8/conf.d:/etc/postgresql
+      - ./log/postgres/utf8_db:/var/log/postgresql
